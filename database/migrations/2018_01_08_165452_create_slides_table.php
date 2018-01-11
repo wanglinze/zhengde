@@ -14,10 +14,11 @@ class CreateSlidesTable extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('image_url');
-            $table->string('course_id');
+            $table->string('image');
+            $table->string('redirect_url')->nullable()->comment('轮播图中点击跳转的页面地址');
+            $table->string('order')->default(0);
             $table->string('title');
-            $table->string('content');
+            $table->string('description');
             $table->timestamps();
             $table->softDeletes();
         });

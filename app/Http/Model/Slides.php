@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Slides extends Model
 {
+    use SoftDeletes;
+
     protected $table="slides";
 
     protected $primaryKey="id";
 
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $guarded=['id'];
 
