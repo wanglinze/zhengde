@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->tinyInteger('cate_order')->default(0)->comment('排序');
             $table->integer('cate_pid')->default(0)->comment('父id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

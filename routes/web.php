@@ -30,7 +30,6 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
     Route::get('quit', 'LoginController@quit')->name('admin.quit');
     Route::any('pass', 'IndexController@pass')->name('admin.pass');
 
-    Route::post('cate/changeorder', 'CategoryController@changeOrder');
 
     Route::resource('staff', 'StaffController');
     Route::post('staff/change-order', 'StaffController@changeOrder')->name('staff.change-order');
@@ -43,19 +42,17 @@ Route::group(['middleware' => ['web','admin.login'],'prefix'=>'admin','namespace
     Route::resource('course', 'CourseController');
 
     Route::resource('category', 'CategoryController');
+    Route::post('category/change-order', 'CategoryController@changeOrder')->name('category.change-order');
 
     Route::resource('article', 'ArticleController');
 
-    Route::post('links/changeorder', 'LinksController@changeOrder');
     Route::resource('links', 'LinksController');
+    Route::post('links/change-order', 'LinksController@changeOrder')->name('links.change-order');
 
-    Route::post('navs/changeorder', 'NavsController@changeOrder');
-    Route::resource('navs', 'NavsController');
-
-    Route::get('config/putfile', 'ConfigController@putFile');
-    Route::post('config/changecontent', 'ConfigController@changeContent');
-    Route::post('config/changeorder', 'ConfigController@changeOrder');
     Route::resource('config', 'ConfigController');
+    Route::get('config/putfile', 'ConfigController@putFile')->name('config.change-order');
+    Route::post('config/change-content', 'ConfigController@changeContent')->name('config.change-content');
+    Route::post('config/change-order', 'ConfigController@changeOrder')->name('config.change-order');
 
     Route::any('upload', 'CommonController@upload')->name('upload');
 

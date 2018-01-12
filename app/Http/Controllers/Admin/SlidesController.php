@@ -78,7 +78,7 @@ class SlidesController extends CommonController
         if($validator->passes()){
             $res = Slides::find($id)->update($input);
             if($res){
-                return redirect()->route('slides.edit', ["id" => $id]);
+                return redirect()->route('slides.index');
             }else{
                 return back()->with('errors','更新失败，请稍后重试！');
             }
@@ -103,17 +103,10 @@ class SlidesController extends CommonController
         $slides->order = $request->order;
         $re = $slides->save();
         if($re){
-            $data = [
-                'status' => 0,
-                'msg' => '排序更新成功！',
-            ];
+            return $this->success('排序更新成功！');
         }else{
-            $data = [
-                'status' => 1,
-                'msg' => '排序更新失败，请稍后重试！',
-            ];
+            return $this->error('排序更新失败，请稍后重试！');
         }
-        return $data;
     }
 
 }

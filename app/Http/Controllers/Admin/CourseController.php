@@ -123,7 +123,7 @@ class CourseController extends CommonController
         if($validator->passes()){
             $res = Course::find($id)->update($data);
             if($res){
-                return redirect()->route('course.edit', ["id" => $id]);
+                return redirect()->route('course.index');
             }else{
                 return back()->with('errors','更新失败，请稍后重试！');
             }

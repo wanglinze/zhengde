@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Links;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class LinksController extends CommonController
@@ -19,26 +16,6 @@ class LinksController extends CommonController
         return view('admin.links.index',compact('data'));
     }
 
-    public function changeOrder()
-    {
-        $input = Input::all();
-        $links = Links::find($input['link_id']);
-        $links->link_order = $input['link_order'];
-        $re = $links->update();
-        if($re){
-            $data = [
-                'status' => 0,
-                'msg' => '友情链接排序更新成功！',
-            ];
-        }else{
-            $data = [
-                'status' => 1,
-                'msg' => '友情链接排序更新失败，请稍后重试！',
-            ];
-        }
-        return $data;
-    }
-
     //get.admin/links/create   添加友情链接
     public function create()
     {
@@ -46,9 +23,9 @@ class LinksController extends CommonController
     }
 
     //post.admin/links  添加友情链接提交
-    public function store()
+    public function store(Request $request)
     {
-        $input = Input::except('_token');
+        $input = $request->except('_token');
         $rules = [
             'link_name'=>'required',
             'link_url'=>'required',
@@ -64,7 +41,7 @@ class LinksController extends CommonController
         if($validator->passes()){
             $re = Links::create($input);
             if($re){
-                return redirect('admin/links');
+                return redirect()->route('links.index');
             }else{
                 return back()->with('errors','友情链接失败，请稍后重试！');
             }
@@ -81,12 +58,12 @@ class LinksController extends CommonController
     }
 
     //put.admin/links/{links}    更新友情链接
-    public function update($link_id)
+    public function update(Request $request, $link_id)
     {
-        $input = Input::except('_token','_method');
+        $input = $request->except('_token','_method');
         $re = Links::where('link_id',$link_id)->update($input);
         if($re){
-            return redirect('admin/links');
+            return redirect()->route('links.index');
         }else{
             return back()->with('errors','友情链接更新失败，请稍后重试！');
         }
@@ -97,23 +74,23 @@ class LinksController extends CommonController
     {
         $re = Links::where('link_id',$link_id)->delete();
         if($re){
-            $data = [
-                'status' => 0,
-                'msg' => '友情链接删除成功！',
-            ];
+            return $this->success('删除成功！');
         }else{
-            $data = [
-                'status' => 1,
-                'msg' => '友情链接删除失败，请稍后重试！',
-            ];
+            return $this->error('删除失败，请稍后重试！');
         }
-        return $data;
     }
 
-
-    //get.admin/category/{category}  显示单个分类信息
-    public function show()
+    public function changeOrder(Request $request)
     {
-
+        $input = $request->input();
+        $links = Links::find($input['link_id']);
+        $links->link_order = $input['link_order'];
+        $re = $links->update();
+        if($re){
+            return $this->success('排序更新成功！');
+        }else{
+            return $this->error('排序更新失败，请稍后重试！');
+        }
     }
+
 }

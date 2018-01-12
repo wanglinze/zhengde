@@ -45,7 +45,7 @@
                             <td>{{$v->created_at}}</td>
                             <td>
                                 <a href="{{route('news.edit',['id' => $v->id])}}">修改</a>
-                                <a href="javascript:;" onclick="delArt( '{{route("news.destroy",["id" => $v->id])}}' )">删除</a>
+                                <a href="javascript:;" onclick="delItem( '{{route("news.destroy",["id" => $v->id])}}' )">删除</a>
                             </td>
                         </tr>
                     @endforeach
@@ -68,12 +68,11 @@
 
     <script>
         //删除分类
-        function delArt(url) {
+        function delItem(url) {
             layer.confirm('您确定要删除吗？', {
                 btn: ['确定','取消'] //按钮
             }, function(){
                 $.post(url,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
-                    console.log(data.data);
                     if(data.success){
                         location.href = location.href;
                         layer.msg(data.data, {icon: 6});

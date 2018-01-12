@@ -3,9 +3,12 @@
 namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
+    use SoftDeletes;
+
     //表名
     protected $table="categories";
 
@@ -16,8 +19,9 @@ class Category extends Model
     public $timestamps=false;
 
     //保护字段,create方法的需要
-    protected $guarded=[];
+    protected $guarded=['cate_id'];
 
+    protected $dates = ['deleted_at'];
 
 
     //将数据在这里处理

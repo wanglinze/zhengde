@@ -22,18 +22,20 @@
                     @endif
                 </div>
             @endif
+            <div class="mark" id="error_message" style="display:none">
+            </div>
         </div>
         <div class="result_content">
             <div class="short_wrap">
-                <a href="{{url('admin/article/create')}}"><i class="fa fa-plus"></i>添加文章</a>
-                <a href="{{url('admin/article')}}"><i class="fa fa-recycle"></i>全部文章</a>
+                <a href="{{route('article.create')}}"><i class="fa fa-plus"></i>添加文章</a>
+                <a href="{{route('article.index')}}"><i class="fa fa-recycle"></i>全部文章</a>
             </div>
         </div>
     </div>
     <!--结果集标题与导航组件 结束-->
 
     <div class="result_wrap">
-        <form action="{{url('admin/article')}}" method="post">
+        <form id="submit_form" action="{{route('article.store')}}" method="post">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
@@ -62,39 +64,14 @@
                 <tr>
                     <th>缩略图：</th>
                     <td>
-                        <input type="text" size="50" name="art_thumb">
-                        <input id="file_upload" name="file_upload" type="file" multiple="true">
-                        <script src="{{asset('resources/org/uploadify/jquery.uploadify.min.js')}}" type="text/javascript"></script>
-                        <link rel="stylesheet" type="text/css" href="{{asset('resources/org/uploadify/uploadify.css')}}">
-                        <script type="text/javascript">
-                            <?php $timestamp = time();?>
-                            $(function() {
-                                $('#file_upload').uploadify({
-                                    'buttonText' : '图片上传',
-                                    'formData'     : {
-                                        'timestamp' : '<?php echo $timestamp;?>',
-                                        '_token'     : "{{csrf_token()}}"
-                                    },
-                                    'swf'      : "{{asset('resources/org/uploadify/uploadify.swf')}}",
-                                    'uploader' : "{{url('admin/upload')}}",
-                                    'onUploadSuccess' : function(file, data, response) {
-                                        $('input[name=art_thumb]').val(data);
-                                        $('#art_thumb_img').attr('src','/'+data);
-                                    }
-                                });
-                            });
-                        </script>
-                        <style>
-                            .uploadify{display:inline-block;}
-                            .uploadify-button{border:none; border-radius:5px; margin-top:8px;}
-                            table.add_tab tr td span.uploadify-button-text{color: #FFF; margin:0;}
-                        </style>
+                        <input id="upload" name="upload" type="file">
+                        <input id="image" name="image" type="hidden">
                     </td>
                 </tr>
                 <tr>
                     <th></th>
                     <td>
-                        <img src="" alt="" id="art_thumb_img" style="max-width: 350px; max-height:100px;">
+                        <img src="" alt="" id="upload_img" style="max-width: 350px; max-height:100px;">
                     </td>
                 </tr>
                 <tr>
@@ -113,9 +90,9 @@
                 <tr>
                     <th>文章内容：</th>
                     <td>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.config.js')}}"></script>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/ueditor.all.min.js')}}"> </script>
-                        <script type="text/javascript" charset="utf-8" src="{{asset('resources/org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
+                        <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/ueditor.config.js')}}"></script>
+                        <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/ueditor.all.min.js')}}"> </script>
+                        <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
                         <script id="editor" name="art_content" type="text/plain" style="width:860px;height:500px;"></script>
                         <script type="text/javascript">
                             var ue = UE.getEditor('editor');
@@ -141,4 +118,32 @@
         </form>
     </div>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var options = {
+                success: function (data) {
+                    $("#error_message").empty();
+                    var submit_url = '{{route("article.store")}}'
+                    $("#submit_form").attr('action',submit_url);
+
+                    if (data.success) {
+                        $("#image").val(data.data);
+                        $("#upload_img").attr('src',data.data);
+                    } else {
+                        let message = data.message;
+                        $("#error_message").append('<p>' + message + '</p>');
+                        $("#error_message").show();
+                    }
+                }
+            };
+
+            $("#upload").change(function () {
+                var upload_url = '{{route("upload")}}'
+                $("#submit_form").attr('action',upload_url);
+                $("#submit_form").ajaxSubmit(options);
+            });
+
+        });
+    </script>
 @endsection

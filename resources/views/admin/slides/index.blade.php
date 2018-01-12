@@ -51,7 +51,7 @@
                             <td>{{$v->created_at}}</td>
                             <td>
                                 <a href="{{route('slides.edit',['id' => $v->id])}}">修改</a>
-                                <a href="javascript:;" onclick="delArt( '{{route("slides.destroy",["id" => $v->id])}}' )">删除</a>
+                                <a href="javascript:;" onclick="delItem( '{{route("slides.destroy",["id" => $v->id])}}' )">删除</a>
                             </td>
                         </tr>
                     @endforeach
@@ -78,21 +78,19 @@
         function changeOrder(obj,id){
             var order = $(obj).val();
             $.post("{{route('slides.change-order')}}",{'_token':'{{csrf_token()}}','id':id,'order':order},function(data){
-                    console.log(data)
-                if(data.status == 0){
-                    layer.msg(data.msg, {icon: 6});
+                if(data.success){
+                    layer.msg(data.data, {icon: 6});
                 }else{
-                    layer.msg(data.msg, {icon: 5});
+                    layer.msg(data.message, {icon: 5});
                 }
             });
         }
 
-        function delArt(url) {
+        function delItem(url) {
             layer.confirm('您确定要删除吗？', {
                 btn: ['确定','取消'] //按钮
             }, function(){
                 $.post(url,{'_method':'delete','_token':"{{csrf_token()}}"},function (data) {
-                    console.log(data.data);
                     if(data.success){
                         location.href = location.href;
                         layer.msg(data.data, {icon: 6});

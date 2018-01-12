@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->integer('user_id')->comment('发表评论者id');
             $table->text('content')->comment('评论内容');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

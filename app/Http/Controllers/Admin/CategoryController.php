@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Category;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends CommonController
@@ -20,10 +17,10 @@ class CategoryController extends CommonController
     }
 
     //post.admin/category  添加分类提交的方法
-    public function store()
+    public function store(Request $request)
     {
         //排除掉_token的影响
-        $input = Input::except('_token');
+        $input = $request->except('_token');
 
         $rules = [
             'cate_name'=>'required',
@@ -38,7 +35,7 @@ class CategoryController extends CommonController
         if($validator->passes()){
             $re = Category::create($input);
             if($re){
-                return redirect('admin/category');
+                return redirect()->route('category.index');
             }else{
                 return back()->with('errors','数据填充失败，请稍后重试！');
             }
@@ -68,18 +65,12 @@ class CategoryController extends CommonController
 
         //如果父级分类被删除,则子分类的pid变成0,也就是变成顶级分类
         Category::where('cate_pid',$cate_id)->update(['cate_pid'=>0]);
+
         if($re){
-            $data = [
-                'status' => 0,
-                'msg' => '分类删除成功！',
-            ];
+            return $this->success('删除成功！');
         }else{
-            $data = [
-                'status' => 1,
-                'msg' => '分类删除失败，请稍后重试！',
-            ];
+            return $this->error('删除失败，请稍后重试！');
         }
-        return $data;
     }
     
     //get.admin/category/{category}/edit  编辑分类
@@ -91,12 +82,12 @@ class CategoryController extends CommonController
     }
 
     //put.admin/category/{category}    更新分类
-    public function update($cate_id)
+    public function update(Request $request, $cate_id)
     {
-        $input = Input::except('_token','_method');
+        $input = $request->except('_token','_method');
         $res = Category::where('cate_id',$cate_id)->update($input);
         if($res){
-            return redirect('admin/category');
+            return redirect()->route('category.index');
         }else{
             return back()->with('errors','分类信息更新失败,请稍后重试');
         }
@@ -105,27 +96,18 @@ class CategoryController extends CommonController
     /**
      * 更新排序
      */
-    public function changeOrder()
+    public function changeOrder(Request $request)
     {
-        $input = Input::all();
+        $input = $request->input();
         //更新
         $cate = Category::find($input['cate_id']);
         $cate->cate_order = $input['cate_order'];
-        $res = $cate->update();
-        //更新后返回值
-        if($res){
-            //成功返回状态码0
-            $data = [
-                'status' => 0,
-                'msg' => '分类排序更新成功！',
-            ];
+        $re = $cate->update();
+        if($re){
+            return $this->success('排序更新成功！');
         }else{
-            $data = [
-                'status' => 1,
-                'msg' => '分类排序更新失败，请稍后重试！',
-            ];
+            return $this->error('排序更新失败，请稍后重试！');
         }
-        return $data;
     }
 
 }

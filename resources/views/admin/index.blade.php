@@ -68,7 +68,6 @@
 				<h3><i class="fa fa-fw fa-cog"></i>系统设置</h3>
 				<ul class="sub_menu">
 					<li><a href="{{url('admin/links')}}" target="main"><i class="fa fa-fw fa-cubes"></i>友情链接</a></li>
-					<li><a href="{{url('admin/navs')}}" target="main"><i class="fa fa-fw fa-navicon"></i>自定义导航</a></li>
 					<li><a href="{{url('admin/config')}}" target="main"><i class="fa fa-fw fa-cogs"></i>网站配置</a></li>
 				</ul>
 			</li>

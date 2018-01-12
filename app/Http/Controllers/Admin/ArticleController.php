@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Model\Article;
 use App\Http\Model\Category;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends CommonController
@@ -28,9 +25,9 @@ class ArticleController extends CommonController
     }
 
     //post.admin/article  添加文章提交
-    public function store()
+    public function store(Request $request)
     {
-        $input = Input::except('_token');
+        $input = $request->except('_token', 'upload');
         $input['art_time'] = time();
 
         $rules = [
@@ -48,7 +45,7 @@ class ArticleController extends CommonController
         if($validator->passes()){
             $res = Article::create($input);
             if($res){
-                return redirect('admin/article');
+                return redirect()->route('article.index');
             }else{
                 return back()->with('errors','数据填充失败，请稍后重试！');
             }
@@ -66,12 +63,12 @@ class ArticleController extends CommonController
     }
 
     //put.admin/article/{article}    更新文章
-    public function update($art_id)
+    public function update(Request $request, $art_id)
     {
-        $input = Input::except('_token','_method');
+        $input = $request->except('_token','_method', 'upload');
         $res = Article::where('art_id',$art_id)->update($input);
         if($res){
-            return redirect('admin/article');
+            return redirect()->route('article.index');
         }else{
             return back()->with('errors','文章更新失败，请稍后重试！');
         }
@@ -82,17 +79,10 @@ class ArticleController extends CommonController
     {
         $re = Article::where('art_id',$art_id)->delete();
         if($re){
-            $data = [
-                'status' => 0,
-                'msg' => '文章删除成功！',
-            ];
+            return $this->success('删除成功！');
         }else{
-            $data = [
-                'status' => 1,
-                'msg' => '文章删除失败，请稍后重试！',
-            ];
+            return $this->error('删除失败，请稍后重试！');
         }
-        return $data;
     }
 
 

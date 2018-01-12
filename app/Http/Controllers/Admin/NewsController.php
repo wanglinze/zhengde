@@ -74,7 +74,7 @@ class NewsController extends CommonController
         if($validator->passes()){
             $res = News::find($id)->update($input);
             if($res){
-                return redirect()->route('news.edit', ["id" => $id]);
+                return redirect()->route('news.index');
             }else{
                 return back()->with('errors','更新失败，请稍后重试！');
             }

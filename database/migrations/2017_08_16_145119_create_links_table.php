@@ -19,6 +19,7 @@ class CreateLinksTable extends Migration
             $table->string('link_url', 255)->default('')->comment('友情链接');
             $table->integer('link_order')->default(0)->comment('友情链接排序');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

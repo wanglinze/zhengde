@@ -82,7 +82,7 @@ class StaffController extends CommonController
         if($validator->passes()){
             $res = Staff::find($id)->update($input);
             if($res){
-                return redirect()->route('staff.edit', ["id" => $id]);
+                return redirect()->route('staff.index');
             }else{
                 return back()->with('errors','更新失败，请稍后重试！');
             }
@@ -107,17 +107,10 @@ class StaffController extends CommonController
         $staff->order = $request->order;
         $re = $staff->save();
         if($re){
-            $data = [
-                'status' => 0,
-                'msg' => '排序更新成功！',
-            ];
+            return $this->success('排序更新成功！');
         }else{
-            $data = [
-                'status' => 1,
-                'msg' => '排序更新失败，请稍后重试！',
-            ];
+            return $this->error('排序更新失败，请稍后重试！');
         }
-        return $data;
     }
 
 }
