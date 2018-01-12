@@ -39,27 +39,27 @@
             <table class="add_tab">
                 <tbody>
                 <tr>
-                    <th><i class="require">*</i>标题：</th>
+                    <th><i class="require">*</i> 标题：</th>
                     <td>
                         <input type="text" name="conf_title" value="{{$field->conf_title}}">
                         <span><i class="fa fa-exclamation-circle yellow"></i>配置项标题必须填写</span>
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i>名称：</th>
+                    <th><i class="require">*</i> 名称：</th>
                     <td>
                         <input type="text" name="conf_name" value="{{$field->conf_name}}">
                         <span><i class="fa fa-exclamation-circle yellow"></i>配置项名称必须填写</span>
                     </td>
                 </tr>
                 <tr>
-                    <th>内容：</th>
+                    <th><i class="require">*</i> 内容：</th>
                     <td>
                         <textarea id="" cols="30" rows="10" name="conf_content">{{$field->conf_content}}</textarea>
                     </td>
                 </tr>
                 <tr>
-                    <th>排序：</th>
+                    <th><i class="require">*</i> 排序：</th>
                     <td>
                         <input type="text" class="sm" name="conf_order" value="{{$field->conf_order}}">
                     </td>

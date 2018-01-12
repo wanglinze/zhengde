@@ -24,24 +24,6 @@ class CourseController extends CommonController
     public function store(Request $request)
     {
         $input = $request->except('_token','upload');
-        $rules = [
-            'title'=>'required',
-            'staff_id'=>'required',
-            'tag'=>'required',
-            'description'=>'required',
-            'content'=>'required',
-        ];
-
-        $message = [
-            'title.required'=>'名称不能为空！',
-            'staff_id.required'=>'请选择授课人！',
-            'tag.required'=>'标签不能为空！',
-            'description.required'=>'描述不能为空！',
-            'content.required'=>'内容不能为空！',
-        ];
-
-        $validator = Validator::make($input,$rules,$message);
-
         $data = array(
             'title' => $request->input('title'),
             'type' => $request->input('type'),
@@ -51,15 +33,40 @@ class CourseController extends CommonController
             'description' => $request->input('description'),
             'content' => $request->input('content'),
         );
+        $rules = [
+            'title'=>'required',
+            'staff_id'=>'required',
+            'content'=>'required',
+        ];
+
+        $message = [
+            'title.required'=>'名称不能为空！',
+            'staff_id.required'=>'请选择授课人！',
+            'content.required'=>'内容不能为空！',
+        ];
 
         if ($request->input('type') == 'normal') {
             $data['start_date'] = $request->input('start_date');
             $data['end_date'] = $request->input('end_date');
             $data['class_time'] = $request->input('normal');
+
+            $rules['start_date'] = 'required';
+            $rules['end_date'] = 'required';
+            $rules['normal'] = 'required';
+            $message['start_date.required'] = '起始日期不能为空！';
+            $message['end_date.required'] = '截止日期不能为空！';
+            $message['normal.required'] = '星期，起止时间不能为空！';
         } else {
             $data['start_date'] = $request->input('temporary_start_date');
             $data['class_time'] = $request->input('temporary');
+
+            $rules['temporary_start_date'] = 'required';
+            $rules['temporary'] = 'required';
+            $message['temporary_start_date.required'] = '上课日期不能为空！';
+            $message['temporary.required'] = '起止时间不能为空！';
         }
+
+        $validator = Validator::make($input,$rules,$message);
 
         if ($validator->passes()) {
             $res = Course::create($data);
@@ -83,22 +90,6 @@ class CourseController extends CommonController
     public function update(Request $request, $id)
     {
         $input = $request->except('_token','_method', 'upload');
-        $rules = [
-            'title'=>'required',
-            'staff_id'=>'required',
-            'tag'=>'required',
-            'description'=>'required',
-            'content'=>'required',
-        ];
-
-        $message = [
-            'title.required'=>'名称不能为空！',
-            'staff_id.required'=>'请选择授课人！',
-            'tag.required'=>'标签不能为空！',
-            'description.required'=>'描述不能为空！',
-            'content.required'=>'内容不能为空！',
-        ];
-
         $data = array(
             'title' => $request->input('title'),
             'type' => $request->input('type'),
@@ -109,13 +100,37 @@ class CourseController extends CommonController
             'content' => $request->input('content'),
         );
 
+        $rules = [
+            'title'=>'required',
+            'staff_id'=>'required',
+            'content'=>'required',
+        ];
+
+        $message = [
+            'title.required'=>'名称不能为空！',
+            'staff_id.required'=>'请选择授课人！',
+            'content.required'=>'内容不能为空！',
+        ];
+
         if ($request->input('type') == 'normal') {
             $data['start_date'] = $request->input('start_date');
             $data['end_date'] = $request->input('end_date');
             $data['class_time'] = $request->input('normal');
+
+            $rules['start_date'] = 'required';
+            $rules['end_date'] = 'required';
+            $rules['normal'] = 'required';
+            $message['start_date.required'] = '起始日期不能为空！';
+            $message['end_date.required'] = '截止日期不能为空！';
+            $message['normal.required'] = '星期，起止时间不能为空！';
         } else {
             $data['start_date'] = $request->input('temporary_start_date');
             $data['class_time'] = $request->input('temporary');
+
+            $rules['temporary_start_date'] = 'required';
+            $rules['temporary'] = 'required';
+            $message['temporary_start_date.required'] = '上课日期不能为空！';
+            $message['temporary.required'] = '起止时间不能为空！';
         }
 
         $validator = Validator::make($input,$rules,$message);

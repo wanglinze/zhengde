@@ -52,11 +52,14 @@ class ConfigController extends Controller
         $rules = [
             'conf_name'=>'required',
             'conf_title'=>'required',
+            'conf_content'=>'required',
+            'conf_order'=>'required',
         ];
-
         $message = [
             'conf_name.required'=>'配置项名称不能为空！',
             'conf_title.required'=>'配置项标题不能为空！',
+            'conf_content.required'=>'配置项内容不能为空！',
+            'conf_order.required'=>'排序项内容不能为空！',
         ];
 
         $validator = Validator::make($input,$rules,$message);
@@ -84,12 +87,30 @@ class ConfigController extends Controller
     public function update(Request $request, $conf_id)
     {
         $input = $request->except('_token','_method');
-        $re = Config::where('conf_id',$conf_id)->update($input);
-        if($re){
-            $this->putFile();
-            return redirect()->route('config.index');
+        $rules = [
+            'conf_name'=>'required',
+            'conf_title'=>'required',
+            'conf_content'=>'required',
+            'conf_order'=>'required',
+        ];
+        $message = [
+            'conf_name.required'=>'配置项名称不能为空！',
+            'conf_title.required'=>'配置项标题不能为空！',
+            'conf_content.required'=>'配置项内容不能为空！',
+            'conf_order.required'=>'排序项内容不能为空！',
+        ];
+        $validator = Validator::make($input,$rules,$message);
+
+        if($validator->passes()){
+            $re = Config::where('conf_id',$conf_id)->update($input);
+            if($re){
+                $this->putFile();
+                return redirect()->route('config.index');
+            }else{
+                return back()->with('errors','配置项更新失败，请稍后重试！');
+            }
         }else{
-            return back()->with('errors','配置项更新失败，请稍后重试！');
+            return back()->withErrors($validator);
         }
     }
 

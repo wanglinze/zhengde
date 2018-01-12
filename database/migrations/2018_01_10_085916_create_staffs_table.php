@@ -18,9 +18,9 @@ class CreateStaffsTable extends Migration
             $table->string('name');
             $table->string('qq')->nullable();
             $table->string('order')->default(0);
-            $table->string('image')->comment('照片');
-            $table->string('description');
-            $table->text('content');
+            $table->string('image')->comment('照片')->nullable();
+            $table->string('description')->nullable()->comment('简介');
+            $table->text('content')->comment('内容展示');
             $table->timestamps();
             $table->softDeletes();
         });

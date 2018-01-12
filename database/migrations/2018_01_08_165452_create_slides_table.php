@@ -18,7 +18,7 @@ class CreateSlidesTable extends Migration
             $table->string('redirect_url')->nullable()->comment('轮播图中点击跳转的页面地址');
             $table->string('order')->default(0);
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

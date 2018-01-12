@@ -47,7 +47,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i> 简介：</th>
+                    <th> 简介：</th>
                     <td>
                         <textarea name="description">{{$field->description}}</textarea>
                     </td>

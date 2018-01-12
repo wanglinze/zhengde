@@ -41,7 +41,7 @@
             <table class="add_tab">
                 <tbody>
                 <tr>
-                    <th width="120">分类：</th>
+                    <th width="120"><i class="require">*</i> 分类：</th>
                     <td>
                         <select name="cate_id">
                             @foreach($data as $d)
@@ -59,13 +59,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>编辑：</th>
+                    <th>作者：</th>
                     <td>
                         <input type="text" class="sm" name="art_editor" value="{{$field->art_editor}}">
                     </td>
                 </tr>
                 <tr>
-                    <th>缩略图：</th>
+                    <th>图片：</th>
                     <td>
                         <input id="upload" name="upload" type="file">
                         <input id="image" name="image" type="hidden" value="{{$field->image}}">
@@ -91,7 +91,7 @@
                 </tr>
 
                 <tr>
-                    <th>文章内容：</th>
+                    <th><i class="require">*</i> 文章内容：</th>
                     <td>
                         <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/ueditor.config.js')}}"></script>
                         <script type="text/javascript" charset="utf-8" src="{{asset('org/ueditor/ueditor.all.min.js')}}"> </script>

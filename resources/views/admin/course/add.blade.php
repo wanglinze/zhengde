@@ -40,7 +40,7 @@
             <table class="add_tab">
                 <tbody>
                 <tr>
-                    <th><i class="require">*</i> 标题：</th>
+                    <th><i class="require">*</i> 名称：</th>
                     <td>
                         <input type="text" class="lg" name="title">
                     </td>

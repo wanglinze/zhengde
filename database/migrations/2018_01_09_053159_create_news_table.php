@@ -20,7 +20,7 @@ class CreateNewsTable extends Migration
             $table->string('description', 255)->default('')->nullable()->comment('描述');
             $table->string('image', 255)->default('')->nullable()->comment('图片');
             $table->text('content')->comment('内容');
-            $table->string('author', 50)->default('')->comment('作者');
+            $table->string('author', 50)->default('')->comment('作者')->nullable();
             $table->integer('view')->default(0)->comment('查看次数');
             $table->timestamps();
             $table->softDeletes();

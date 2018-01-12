@@ -28,14 +28,14 @@ class ArticleController extends CommonController
     public function store(Request $request)
     {
         $input = $request->except('_token', 'upload');
-        $input['art_time'] = time();
-
         $rules = [
+            'cate_id'=>'required',
             'art_title'=>'required',
             'art_content'=>'required',
         ];
 
         $message = [
+            'cate_id.required'=>'文章分类不能为空！',
             'art_title.required'=>'文章名称不能为空！',
             'art_content.required'=>'文章内容不能为空！',
         ];
@@ -66,11 +66,29 @@ class ArticleController extends CommonController
     public function update(Request $request, $art_id)
     {
         $input = $request->except('_token','_method', 'upload');
-        $res = Article::where('art_id',$art_id)->update($input);
-        if($res){
-            return redirect()->route('article.index');
+        $rules = [
+            'cate_id'=>'required',
+            'art_title'=>'required',
+            'art_content'=>'required',
+        ];
+
+        $message = [
+            'cate_id.required'=>'文章分类不能为空！',
+            'art_title.required'=>'文章名称不能为空！',
+            'art_content.required'=>'文章内容不能为空！',
+        ];
+
+        $validator = Validator::make($input,$rules,$message);
+
+        if($validator->passes()){
+            $res = Article::where('art_id',$art_id)->update($input);
+            if($res){
+                return redirect()->route('article.index');
+            }else{
+                return back()->with('errors','文章更新失败，请稍后重试！');
+            }
         }else{
-            return back()->with('errors','文章更新失败，请稍后重试！');
+            return back()->withErrors($validator);
         }
     }
 

@@ -47,7 +47,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i> 作者：</th>
+                    <th> 作者：</th>
                     <td>
                         <input type="text" class="sm" name="author" value="{{$field->author}}">
                     </td>

@@ -46,7 +46,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i> 简介：</th>
+                    <th> 简介：</th>
                     <td>
                         <textarea name="description"></textarea>
                     </td>
@@ -67,7 +67,7 @@
                 <tr>
                     <th><i class="require">*</i> 排序：</th>
                     <td>
-                        <input type="text" class="sm" name="order">
+                        <input type="text" class="sm" name="order" value="0">
                     </td>
                 </tr>
                 <tr>

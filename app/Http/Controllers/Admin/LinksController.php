@@ -29,11 +29,13 @@ class LinksController extends CommonController
         $rules = [
             'link_name'=>'required',
             'link_url'=>'required',
+            'link_order'=>'required',
         ];
 
         $message = [
             'link_name.required'=>'友情链接名称不能为空！',
             'link_url.required'=>'友情链接URL不能为空！',
+            'link_order.required'=>'友情链接排序不能为空！',
         ];
 
         $validator = Validator::make($input,$rules,$message);
@@ -61,12 +63,31 @@ class LinksController extends CommonController
     public function update(Request $request, $link_id)
     {
         $input = $request->except('_token','_method');
-        $re = Links::where('link_id',$link_id)->update($input);
-        if($re){
-            return redirect()->route('links.index');
+        $rules = [
+            'link_name'=>'required',
+            'link_url'=>'required',
+            'link_order'=>'required',
+        ];
+
+        $message = [
+            'link_name.required'=>'友情链接名称不能为空！',
+            'link_url.required'=>'友情链接URL不能为空！',
+            'link_order.required'=>'友情链接排序不能为空！',
+        ];
+
+        $validator = Validator::make($input,$rules,$message);
+
+        if($validator->passes()){
+            $re = Links::where('link_id',$link_id)->update($input);
+            if($re){
+                return redirect()->route('links.index');
+            }else{
+                return back()->with('errors','友情链接更新失败，请稍后重试！');
+            }
         }else{
-            return back()->with('errors','友情链接更新失败，请稍后重试！');
+            return back()->withErrors($validator);
         }
+
     }
 
     //delete.admin/links/{links}   删除友情链接

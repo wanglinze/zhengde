@@ -35,13 +35,13 @@
     <!--结果集标题与导航组件 结束-->
 
     <div class="result_wrap">
-        <form id="submit_form" action="{{route('course.store')}}" method="post">
+        <form id="submit_form" action="{{route('course.update', ['id' => $field->id])}}" method="post">
             <input type="hidden" name="_method" value="PUT">
             {{csrf_field()}}
             <table class="add_tab">
                 <tbody>
                 <tr>
-                    <th><i class="require">*</i> 标题：</th>
+                    <th><i class="require">*</i> 名称：</th>
                     <td>
                         <input type="text" class="lg" name="title" value="{{$field->title}}">
                     </td>

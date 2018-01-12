@@ -24,13 +24,11 @@ class NewsController extends CommonController
         $input = $request->except('_token','upload');
         $rules = [
             'title'=>'required',
-            'author'=>'required',
             'content'=>'required',
         ];
 
         $message = [
             'title.required'=>'名称不能为空！',
-            'author.required'=>'作者不能为空！',
             'content.required'=>'内容不能为空！',
         ];
 
@@ -59,13 +57,11 @@ class NewsController extends CommonController
         $input = $request->except('_token','_method', 'upload');
         $rules = [
             'title'=>'required',
-            'author'=>'required',
             'content'=>'required',
         ];
 
         $message = [
             'title.required'=>'名称不能为空！',
-            'author.required'=>'作者不能为空！',
             'content.required'=>'内容不能为空！',
         ];
 

@@ -23,35 +23,35 @@
 	<div class="menu_box">
 		<ul>
 			<li>
-				<h3><i class="fa fa-fw fa-clipboard"></i>职工管理</h3>
+				<h3><i class="fa fa-fw fa-user"></i>职工管理</h3>
 				<ul class="sub_menu">
 					<li><a href="{{route('staff.create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加职工</a></li>
 					<li><a href="{{route('staff.index')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>职工列表</a></li>
 				</ul>
 			</li>
 			<li>
-				<h3><i class="fa fa-fw fa-clipboard"></i>轮播图管理</h3>
+				<h3><i class="fa fa-fw fa-photo"></i>轮播图管理</h3>
 				<ul class="sub_menu">
 					<li><a href="{{route('slides.create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加轮播图</a></li>
 					<li><a href="{{route('slides.index')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>轮播图列表</a></li>
 				</ul>
 			</li>
 			<li>
-				<h3><i class="fa fa-fw fa-clipboard"></i>新闻管理</h3>
+				<h3><i class="fa fa-fw fa-newspaper-o"></i>新闻管理</h3>
 				<ul class="sub_menu">
 					<li><a href="{{route('news.create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加新闻</a></li>
 					<li><a href="{{route('news.index')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>新闻列表</a></li>
 				</ul>
 			</li>
 			<li>
-				<h3><i class="fa fa-fw fa-clipboard"></i>课程管理</h3>
+				<h3><i class="fa fa-fw fa-table"></i>课程管理</h3>
 				<ul class="sub_menu">
                     <li><a href="{{route('course.create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加课程</a></li>
 					<li><a href="{{route('course.index')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>课程列表</a></li>
 				</ul>
 			</li>
 			<li>
-				<h3><i class="fa fa-fw fa-clipboard"></i>分类管理</h3>
+				<h3><i class="fa fa-fw fa-list"></i>分类管理</h3>
 				<ul class="sub_menu">
 					<li><a href="{{route('category.create')}}" target="main"><i class="fa fa-fw fa-plus-square"></i>添加分类</a></li>
 					<li><a href="{{route('category.index')}}" target="main"><i class="fa fa-fw fa-list-ul"></i>分类列表</a></li>

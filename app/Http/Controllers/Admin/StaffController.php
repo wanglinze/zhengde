@@ -24,17 +24,13 @@ class StaffController extends CommonController
         $input = $request->except('_token','upload');
         $rules = [
             'name'=>'required',
-            'description'=>'required',
             'content'=>'required',
-            'image'=>'required',
             'order'=>'required',
         ];
 
         $message = [
             'name.required'=>'姓名不能为空！',
-            'description.required'=>'简介不能为空！',
             'content.required'=>'内容不能为空！',
-            'image.required'=>'请上传图片！',
             'order.required'=>'排序不能为空！',
         ];
 
@@ -63,17 +59,13 @@ class StaffController extends CommonController
         $input = $request->except('_token','_method', 'upload');
         $rules = [
             'name'=>'required',
-            'description'=>'required',
             'content'=>'required',
-            'image'=>'required',
             'order'=>'required',
         ];
 
         $message = [
             'name.required'=>'姓名不能为空！',
-            'description.required'=>'简介不能为空！',
             'content.required'=>'内容不能为空！',
-            'image.required'=>'请上传图片！',
             'order.required'=>'排序不能为空！',
         ];
 

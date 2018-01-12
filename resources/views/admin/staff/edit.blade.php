@@ -47,7 +47,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i> 图片：</th>
+                    <th> 图片：</th>
                     <td>
                         <input id="upload" name="upload" type="file" >
                         <input id="image" name="image" type="hidden" value="{{$field->image}}">
@@ -60,19 +60,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i> 排序：</th>
-                    <td>
-                        <input type="text" class="sm" name="order" value="{{$field->order}}">
-                    </td>
-                </tr>
-                <tr>
                     <th> QQ：</th>
                     <td>
                         <input type="text" class="md" name="qq" value="{{$field->qq}}">
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="require">*</i> 简介：</th>
+                    <th><i class="require">*</i> 排序：</th>
+                    <td>
+                        <input type="text" class="sm" name="order" value="{{$field->order}}">
+                    </td>
+                </tr>
+                <tr>
+                    <th> 简介：</th>
                     <td>
                         <textarea name="description">{{$field->name}}</textarea>
                     </td>

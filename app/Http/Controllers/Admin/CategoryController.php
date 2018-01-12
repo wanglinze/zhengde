@@ -23,11 +23,15 @@ class CategoryController extends CommonController
         $input = $request->except('_token');
 
         $rules = [
+            'cate_pid'=>'required',
             'cate_name'=>'required',
+            'cate_order'=>'required',
         ];
 
         $message = [
+            'cate_pid.required'=>'父级分类不能为空！',
             'cate_name.required'=>'分类名称不能为空！',
+            'cate_order.required'=>'排序不能为空！',
         ];
 
         $validator = Validator::make($input,$rules,$message);
@@ -85,12 +89,31 @@ class CategoryController extends CommonController
     public function update(Request $request, $cate_id)
     {
         $input = $request->except('_token','_method');
-        $res = Category::where('cate_id',$cate_id)->update($input);
-        if($res){
-            return redirect()->route('category.index');
+        $rules = [
+            'cate_pid'=>'required',
+            'cate_name'=>'required',
+            'cate_order'=>'required',
+        ];
+
+        $message = [
+            'cate_pid.required'=>'父级分类不能为空！',
+            'cate_name.required'=>'分类名称不能为空！',
+            'cate_order.required'=>'排序不能为空！',
+        ];
+
+        $validator = Validator::make($input,$rules,$message);
+
+        if($validator->passes()){
+            $res = Category::where('cate_id',$cate_id)->update($input);
+            if($res){
+                return redirect()->route('category.index');
+            }else{
+                return back()->with('errors','分类信息更新失败,请稍后重试');
+            }
         }else{
-            return back()->with('errors','分类信息更新失败,请稍后重试');
+            return back()->withErrors($validator);
         }
+
     }
 
     /**

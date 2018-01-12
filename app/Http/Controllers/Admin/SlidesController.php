@@ -24,14 +24,12 @@ class SlidesController extends CommonController
         $input = $request->except('_token','upload');
         $rules = [
             'title'=>'required',
-            'description'=>'required',
             'image'=>'required',
             'order'=>'required',
         ];
 
         $message = [
             'title.required'=>'标题不能为空！',
-            'description.required'=>'简介不能为空！',
             'image.required'=>'请上传图片！',
             'order.required'=>'排序不能为空！',
         ];
@@ -61,14 +59,12 @@ class SlidesController extends CommonController
         $input = $request->except('_token','_method', 'upload');
         $rules = [
             'title'=>'required',
-            'description'=>'required',
             'image'=>'required',
             'order'=>'required',
         ];
 
         $message = [
             'title.required'=>'标题不能为空！',
-            'description.required'=>'简介不能为空！',
             'image.required'=>'请上传图片！',
             'order.required'=>'排序不能为空！',
         ];

@@ -38,7 +38,7 @@
             <table class="add_tab">
                 <tbody>
                 <tr>
-                    <th><i class="require">*</i>链接名称：</th>
+                    <th><i class="require">*</i> 链接名称：</th>
                     <td>
                         <input type="text" name="link_name">
                         <span><i class="fa fa-exclamation-circle yellow"></i>链接名称必须填写</span>
@@ -57,7 +57,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>排序：</th>
+                    <th><i class="require">*</i> 排序：</th>
                     <td>
                         <input type="text" class="sm" name="link_order" value="0">
                     </td>

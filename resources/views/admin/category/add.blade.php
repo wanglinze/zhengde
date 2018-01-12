@@ -76,7 +76,7 @@
                 <tr>
                     <th><i class="require">*</i>排序：</th>
                     <td>
-                        <input type="text" class="sm" name="cate_order">
+                        <input type="text" class="sm" name="cate_order" value="0">
                     </td>
                 </tr>
                 <tr>
