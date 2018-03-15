@@ -19,7 +19,7 @@ class CreateAdminUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        \DB::table('admin_users')->insert(['user_name' => 'admin', 'user_pass' => 'eyJpdiI6Im9aS3djNXhvRjI2d2oxaDRiVThPYmc9PSIsInZhbHVlIjoiMVF4ZWk3RmdsUDVqS2NkTituejRTZz09IiwibWFjIjoiNTBhMzA1OTBhZTYxNzkxOWQzODgzZmRkZDg5NGQ5NmU0ODk4Nzg1ZTZhN2M0MDFkN2Q3NTJkZjc0Mzc3NmU2MCJ9']);
+        \DB::table('admin_users')->insert(['user_name' => 'admin', 'user_pass' => \Hash::make('admin')]);
     }
 
     /**
